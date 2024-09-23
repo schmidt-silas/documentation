@@ -1,0 +1,47 @@
+#cloud-config
+  #User-Config
+users:
+  - name: $USER
+    groups: users, admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys: #SSH_Keys
+      - ssh-rsa $SSH_PUB_KEY
+  #Package install and update
+packages:
+  - fail2ban
+  - ufw
+  - ifupdown
+package_update: true
+package_upgrade: true
+  #Executed commands
+runcmd:
+  #fail2ban config
+  - printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
+  - systemctl enable fail2ban
+  #ufw config
+  - ufw allow OpenSSH
+  - ufw enable
+  #ssh config
+  - sed -i -e '/^\(#\|\)PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)KbdInteractiveAuthentication/s/^.*$/KbdInteractiveAuthentication no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)ChallengeResponseAuthentication/s/^.*$/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)MaxAuthTries/s/^.*$/MaxAuthTries 2/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)AllowTcpForwarding/s/^.*$/AllowTcpForwarding no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config
+  - sed -i '$a AllowUsers $USER' /etc/ssh/sshd_config #Allow user for ssh
+  - |
+    cat <<'EOF' >> /etc/systemd/network/10-enp7s0.network
+    [Match]
+    Name=enp7s0
+    
+    [Network]
+    DHCP=yes
+    Gateway=$GW_IP (.1 on Hetzner and NOT your GW)
+    EOF
+  - printf "[Resolve]\nDNS=1.1.1.1" > /etc/systemd/resolved.conf
+  - [systemctl, restart, systemd-resolved]
+  - reboot

@@ -1,0 +1,9 @@
+UnsupportetCPU
+Bootoption: allowLegacyCPU=true
+
+UnsupportetNIC
+Custom ISO mit USBtoNIC Driver
+(ueber autodeploy)
+
+vCenter RAM limit
+Change in: \\VCSA\vcsa-ui-installer\win32\resources\app\dist\resources\layout.json

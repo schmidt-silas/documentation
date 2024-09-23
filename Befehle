@@ -1,0 +1,2 @@
+#Testfile mit bestimmter groesse generieren
+fsutil file createNew C:\Users\USER\Documents\2-10g.test 10737418240
