@@ -45,3 +45,7 @@ sudo apt-get -y install cuda-toolkit-12-6
 
 
 ### Maby gruppen rechte wie bei Jim Garage
+
+
+
+setting no-cgroups=true\ inside /etc/nvidia-container-runtime/config.toml and running the container
