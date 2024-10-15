@@ -5,7 +5,7 @@ echo "blacklist nvidia" >> /etc/modprobe.d/blacklist.conf
 echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf
 echo "blacklist radeon" >> /etc/modprobe.d/blacklist.conf
 
-wget (https://www.nvidia.com/en-us/drivers/unix/)
+wget https://us.download.nvidia.com/XFree86/Linux-x86_64/550.120/NVIDIA-Linux-x86_64-550.120.run   #(https://www.nvidia.com/en-us/drivers/unix/)
 chmod +x NVIDIA-Linux-x86_64-*
 ./NVIDIA-Linux-x86_64-* --dkms
 
@@ -23,7 +23,7 @@ lxc.mount.entry: /dev/nvidia-uvm-tools dev/nvidia-uvm-tools none bind,optional,c
 
 # LXC
 apt install build-essential lshw sudo curl -y
-wget (https://www.nvidia.com/en-us/drivers/unix/)
+wget https://us.download.nvidia.com/XFree86/Linux-x86_64/550.120/NVIDIA-Linux-x86_64-550.120.run   #(https://www.nvidia.com/en-us/drivers/unix/)
 chmod +x NVIDIA-Linux-x86_64-*
 ./NVIDIA-Linux-x86_64-* --no-kernel-modules 
 
