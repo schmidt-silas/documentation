@@ -1,4 +1,10 @@
 # Host
+apt install pve-headers dkms -y
+
+echo "blacklist nvidia" >> /etc/modprobe.d/blacklist.conf
+echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf
+echo "blacklist radeon" >> /etc/modprobe.d/blacklist.conf
+
 wget (https://www.nvidia.com/en-us/drivers/unix/)
 chmod +x NVIDIA-Linux-x86_64-*
 ./NVIDIA-Linux-x86_64-* --dkms
@@ -36,3 +42,6 @@ sudo dpkg -i cuda-keyring_1.1-1_all.deb
 sudo add-apt-repository contrib
 sudo apt-get update
 sudo apt-get -y install cuda-toolkit-12-6
+
+
+### Maby gruppen rechte wie bei Jim Garage
