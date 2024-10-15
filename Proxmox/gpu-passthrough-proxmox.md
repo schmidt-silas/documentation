@@ -22,7 +22,7 @@ lxc.mount.entry: /dev/nvidia-modeset dev/nvidia-modeset none bind,optional,creat
 lxc.mount.entry: /dev/nvidia-uvm-tools dev/nvidia-uvm-tools none bind,optional,create=file
 
 # LXC
-apt install build-essential lswh sudo curl -y
+apt install build-essential lshw sudo curl -y
 wget (https://www.nvidia.com/en-us/drivers/unix/)
 chmod +x NVIDIA-Linux-x86_64-*
 ./NVIDIA-Linux-x86_64-* --no-kernel-modules 
