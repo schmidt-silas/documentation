@@ -26,6 +26,10 @@ apt-get update
 #install packages
 apt-get install -y qemu-guest-agent stty
 
+#add support for xterm.js
+sed -i 's|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX="quiet console=tty0 console=ttyS0,115200"|' /etc/default/grub
+update-grub
+
 #flush the logs
 logrotate -f /etc/logrotate.conf
 
