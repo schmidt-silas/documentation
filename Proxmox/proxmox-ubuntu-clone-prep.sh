@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 
 #
 # Adapted from
@@ -24,7 +24,7 @@ echo "datasource_list: [ NoCloud, ConfigDrive ]" > /etc/cloud/cloud.cfg.d/99_pve
 apt-get update
 
 #install packages
-apt-get install -y qemu-guest-agent
+apt-get install -y qemu-guest-agent stty
 
 #flush the logs
 logrotate -f /etc/logrotate.conf
